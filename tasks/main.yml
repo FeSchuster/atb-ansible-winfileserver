@@ -1,2 +1,21 @@
 ---
 # tasks file for atb-ansible-winfileserver
+    - name: Install File Server Role
+      win_feature:
+        name: File-Services
+        state: present
+
+    - name: Create Folder Structure
+      win_file:
+        path: C:\SharedFolder
+        state: directory
+
+    - name: Create Shared Folder
+      win_share:
+        name: SharedFolder
+        path: C:\SharedFolder
+        description: Shared folder for domain users
+        full_access: "domain users"
+        read_access: "domain users"
+        change_access: "domain users"
+        state: present
